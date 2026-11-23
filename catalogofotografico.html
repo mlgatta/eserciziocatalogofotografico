@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Catalogo fotografico - Breaking Bad</title>
+	<style>
+		.barra-controlli {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			margin-top: 20px;
+		}
+
+
+		#scegli_immagine {
+			padding: 6px 10px;
+			font-size: 15px;
+		}
+
+		#mostraimmagine {
+			display: none; /* Inizialmente nascosto come da traccia */
+			position: relative;
+			width: 500px;
+			max-width: 95%;
+			height: 500px;
+			border: 2px solid #030695;
+			margin: 20px auto 0 auto;
+		}
+
+		img {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			margin: auto;
+			max-width: 100%;
+			max-height: 100%;
+			width: auto;
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+	<form id="moduloweb" name="modulo" method="post" class="barra-controlli">
+		<button type="button" id="btnPrec">Prec.</button>
+		<select name="immagine" id="scegli_immagine">
+			<option selected disabled>Seleziona il personaggio</option>
+			<option value="">Walter White/Heisenberg</option>
+			<option value="">Jesse Pinkman</option>
+			<option value="">Skyler White</option>
+			<option value="">Hank Schrader</option>
+			<option value="">Walter Flynn White Jr.</option>
+			<option value="">Saul Goodman</option>
+			<option value="">Gus Fring</option>
+			<option value="">Mike Ehrmantraut</option>
+			<option value="">Hector Salamanca</option>
+			<option value="">Tortuga</option>		
+	</select>
+	<button type="button" id="btnSucc">Succ.</button>
+	</form>
+	
+	<div id="mostraimmagine"></div>
+	<script>
+		document.getElementById("scegli_immagine").addEventListener("change", apri);
+		function apri() {
+			let url = document.modulo.immagine.value;
+			document.getElementById("mostraimmagine").innerHTML = "<img src='" + url + "' />";
+		}
+		
+		const breakingBad = [
+		    "https://static0.colliderimages.com/wordpress/wp-content/uploads/2026/01/breaking-bad3.jpg?",
+		    "https://static1.srcdn.com/wordpress/wp-content/uploads/2025/07/aaron-paul-as-jesse-pinkman-looking-surprised-in-breaking-bad.jpg",
+		    "https://consequence.net/wp-content/uploads/2018/01/breaking-bad-skylerrrrrr.jpg?",
+		    "https://vignette.wikia.nocookie.net/breakingbad/images/f/f7/Cast_bb_800x600_hank-schrader.jpg",
+		    "https://i.pinimg.com/736x/6d/70/ea/6d70eac61719a85ad4ce0fad217c2035.jpg",
+		    "https://www.slashfilm.com/img/gallery/the-16-best-saul-goodman-moments-in-better-call-saul-and-breaking-bad/l-intro-1660832678.jpg",
+		    "https://static.wikia.nocookie.net/breakingbad/images/5/5e/Gus_Fring_2002.jpg",
+		    "https://static.wikia.nocookie.net/arkhamcity/images/6/6a/Jonathan_Banks.jpg",
+		    "https://static.wikia.nocookie.net/breakingbad/images/3/34/TioSalamanca.jpg",
+		    "https://static.wikia.nocookie.net/breakingbad/images/f/fb/Ep-7-6.jpg"
+		];
+		let indiceCorrente = -1;
+
+			const selectEl = document.getElementById("scegli_immagine");
+			const boxEl = document.getElementById("mostraimmagine");
+
+			selectEl.addEventListener("change", apri);
+			document.getElementById("btnPrec").addEventListener("click", precedente);
+			document.getElementById("btnSucc").addEventListener("click", successivo);
+
+			function mostraFoto(indice) {
+				indiceCorrente = indice;
+				selectEl.selectedIndex = indiceCorrente + 1;
+				boxEl.style.display = "block";
+				boxEl.innerHTML = "<img src='" + breakingBad[indiceCorrente] + "' alt='Personaggio Breaking Bad' />";
+			}
+
+			function apri() {
+
+				const indiceSelezionato = selectEl.selectedIndex - 1;
+				if (indiceSelezionato >= 0 && indiceSelezionato < breakingBad.length) {
+					mostraFoto(indiceSelezionato);
+				}
+			}
+
+			function successivo() {
+				if (indiceCorrente < breakingBad.length - 1) {
+					mostraFoto(indiceCorrente + 1);
+				} else {
+					mostraFoto(0);
+				}
+			}
+
+			function precedente() {
+				if (indiceCorrente > 0) {
+					mostraFoto(indiceCorrente - 1);
+				} else {
+					mostraFoto(breakingBad.length - 1);
+				}
+			}
+		</script>
+</body>
+</html>
