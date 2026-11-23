@@ -44,9 +44,9 @@
 </head>
 <body>
 	<form id="moduloweb" name="modulo" method="post" class="barra-controlli">
-		<button type="button" id="btnPrec">Prec.</button>
+		<button type="button" id="btnPrec" disabled>Prec.</button>
 		<select name="immagine" id="scegli_immagine">
-			<option selected disabled>Seleziona il personaggio</option>
+			<option selected disabled>Seleziona il personaggio</option> <!-- pulsante "Prec." inizialmente disattivo -->
 			<option value="">Walter White/Heisenberg</option>
 			<option value="">Jesse Pinkman</option>
 			<option value="">Skyler White</option>
@@ -58,7 +58,7 @@
 			<option value="">Hector Salamanca</option>
 			<option value="">Tortuga</option>		
 	</select>
-	<button type="button" id="btnSucc">Succ.</button>
+	<button type="button" id="btnSucc" disabled>Succ.</button> <!-- pulsante "Succ." inizialmente disattivo -->
 	</form>
 	
 	<div id="mostraimmagine"></div>
@@ -68,6 +68,7 @@
 			let url = document.modulo.immagine.value;
 			document.getElementById("mostraimmagine").innerHTML = "<img src='" + url + "' />";
 		}
+		
 		
 		const breakingBad = [
 		    "https://static0.colliderimages.com/wordpress/wp-content/uploads/2026/01/breaking-bad3.jpg?",
@@ -95,6 +96,8 @@
 				selectEl.selectedIndex = indiceCorrente + 1;
 				boxEl.style.display = "block";
 				boxEl.innerHTML = "<img src='" + breakingBad[indiceCorrente] + "' alt='Personaggio Breaking Bad' />";
+				document.getElementById("btnPrec").disabled = false; // pulsante "Prec." attivo
+				document.getElementById("btnSucc").disabled = false; // pulsante "Succ." attivo
 			}
 
 			function apri() {
